@@ -1,7 +1,13 @@
 import os
 import sys
 import pathlib as pl
+import subprocess
 from shutil import rmtree
+
+cmdList = []
+
+
+
 def hasScriptFolder():
     path = pl.Path('ecms')
     if path.exists() and path.is_dir():
@@ -24,8 +30,18 @@ def SetupFiles():
         print('It seems this is the first time you run this program or is making a reinstallation.')
         ans = input('Would you like me to create the startup files? [y/n]: ')
     if ans == 'y':
+
+        print('Creating script folder....')
         ScriptFolder()
+        print('Script folder Created at ' + str(pl.Path('ecms')) + '.')
+
+        print('Creating help Script....')
         createHelpFile()
+        print('Help script created at ' + str(pl.Path('ecms/help.py')) + '.')
+
+        print('Creating example script....')
+        createExampleFile()
+        print('Example script created at ' + str(pl.Path('ecms/example.py')) + '.')
 
 
 def createHelpFile():
@@ -49,13 +65,75 @@ if __name__ == "__main__":
     f.close()
 
 def createExampleFile():
-    pass
+    f = open('ecms/example.py', 'w')
+    f.write(
+"""
+import os
+
+def main():
+    p = os.listdir()
+    print(len(p))
+
+if __name__ == "__main__":
+    main()
+""")
+    f.flush()
+    f.close()
+
 
 def createGenericFile():
     pass
 
+def cleanList(progs):
+    for x in progs:
+        if x[0] == '.' or pl.Path(x).is_dir():
+            progs.remove(x)
+
+def parseEcmsFolder():
+    progs = os.listdir('./ecms')
+    print(progs)
+    cleanList(progs)
+    print(progs)
+    
+    for i,x in enumerate(progs):
+        if(hasExtension(x)):
+            progs[i] = removeExtension(x)
+    return progs
+    
+        
+
+def removeExtension(name = ''):
+    x = len(name) - 1
+    dot = x
+    found = False
+    while( x > 0 and not found):
+        if(name[x] == '.'):
+            dot = x
+            found = True
+
+        x -= 1
+    if(found):
+        return name[:dot]
+    else:
+        return name
+
+def hasExtension(name = ''):
+    x = len(name) - 1
+    while( x > 0):
+        if(name[x] == '.'):
+            return True
+
+        x -= 1
+    return False
+
+def hasProgram(name):
+    if name in cmdList:
+        return True
+    return False
+
 def main():
-    rmtree('ecms')
+    if hasScriptFolder():
+        rmtree('ecms')
     SetupFiles() # Checks necessary if ecms exists
     print('Hello! Type help to discover more commands.')
 
@@ -71,10 +149,18 @@ def main():
         if(cmd == "exit" or cmd == "q"):
             print('Bye!')
             break
+        elif cmd == 'ul':
+            global cmdList 
+            cmdList = os.listdir('./ecms')
+            print('List of Scripts updated.')
+            print(cmdList)
         else:
-            print('hey')
+            if(hasProgram(cmd)):
+                subprocess.run(['python3', 'ecms/' + cmd])
+            else:
+                print('There is no Script with that name.')
 
-
+            
 if __name__ == "__main__":
     try:
         main()
@@ -82,7 +168,7 @@ if __name__ == "__main__":
         print()
 
 
-
+print(cmdList)
 """
 
 ADD NEW SCRIPT
