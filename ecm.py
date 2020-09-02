@@ -2,7 +2,6 @@ import os
 import sys
 import pathlib as pl
 import subprocess
-from shutil import rmtree
 
 cmdList = []
 cmdWithExtensions = []
@@ -30,57 +29,11 @@ def SetupFiles():
     if not hasScriptFolder():
         print('It seems this is the first time you run this program or is making a reinstallation.')
         ans = input('Would you like me to create the startup files? [y/n]: ')
-    if ans == 'y':
+        if ans == 'y':
 
-        print('Creating script folder....')
-        ScriptFolder()
-        print('Script folder Created at ' + str(pl.Path('ecms')) + '.')
-
-        print('Creating help Script....')
-        createHelpFile()
-        print('Help script created at ' + str(pl.Path('ecms/help.py')) + '.')
-
-        print('Creating example script....')
-        createExampleFile()
-        print('Example script created at ' + str(pl.Path('ecms/example.py')) + '.')
-
-
-def createHelpFile():
-    f = open('ecms/help.py', 'w')
-    f.write(
-"""
-import os
-
-def main():
-    print('This is all of the available scripts.')
-    print('Type the name of the file and any necessary arguments.')
-    p = os.listdir()
-    for file in p:
-        print(file)
-
-
-if __name__ == "__main__":
-    main()
-""")
-    f.flush()
-    f.close()
-
-def createExampleFile():
-    f = open('ecms/example.py', 'w')
-    f.write(
-"""
-import os
-
-def main():
-    p = os.listdir()
-    print(len(p))
-
-if __name__ == "__main__":
-    main()
-""")
-    f.flush()
-    f.close()
-
+            print('Creating script folder....')
+            ScriptFolder()
+            print('Script folder Created at ' + str(pl.Path('ecms')) + '.')
 
 def createGenericFile():
     pass
@@ -131,8 +84,7 @@ def hasProgram(name):
     return False
 
 def main():
-    if hasScriptFolder():
-        rmtree('ecms')
+
     SetupFiles() # Checks necessary if ecms exists
     os.chdir('./ecms')
     print('Hello! Type help to discover more commands.')
@@ -145,7 +97,7 @@ def main():
     
     while(1):
 
-        cmd = input("$ ") # Holds the user input
+        cmd = input( os.getcwd() + ":$ ") # Holds the user input
         
         if(cmd == "exit" or cmd == "q"):
             print('Bye!')
