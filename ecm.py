@@ -5,6 +5,7 @@ import subprocess
 from shutil import rmtree
 
 cmdList = []
+cmdWithExtensions = []
 
 
 
@@ -90,7 +91,7 @@ def cleanList(progs):
             progs.remove(x)
 
 def parseEcmsFolder():
-    progs = os.listdir('./ecms')
+    progs = os.listdir()
     print(progs)
     cleanList(progs)
     print(progs)
@@ -100,8 +101,6 @@ def parseEcmsFolder():
             progs[i] = removeExtension(x)
     return progs
     
-        
-
 def removeExtension(name = ''):
     x = len(name) - 1
     dot = x
@@ -135,6 +134,7 @@ def main():
     if hasScriptFolder():
         rmtree('ecms')
     SetupFiles() # Checks necessary if ecms exists
+    os.chdir('./ecms')
     print('Hello! Type help to discover more commands.')
 
     """
@@ -142,6 +142,7 @@ def main():
     This loop handles the user input
     and redirects to the correponding script to be run
     """
+    
     while(1):
 
         cmd = input("$ ") # Holds the user input
@@ -150,17 +151,17 @@ def main():
             print('Bye!')
             break
         elif cmd == 'ul':
-            global cmdList 
-            cmdList = os.listdir('./ecms')
+            global cmdList
+            global cmdWithExtensions
+            cmdList = parseEcmsFolder()
+            cmdWithExtensions = os.listdir()
             print('List of Scripts updated.')
-            print(cmdList)
         else:
             if(hasProgram(cmd)):
-                subprocess.run(['python3', 'ecms/' + cmd])
+                subprocess.run(['python3', cmd])
             else:
                 print('There is no Script with that name.')
 
-            
 if __name__ == "__main__":
     try:
         main()
