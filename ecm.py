@@ -34,18 +34,17 @@ def main():
         if(cmd == "exit" or cmd == "q"):
             print('Bye!')
             break
-        elif cmd == 'ul':
-
+        else:
+            
             global cmdList
             global cmdWithExtensions
 
             cmdList = file_parser.parseEcmsFolder()
             
             cmdWithExtensions = os.listdir()
-            print('List of Scripts updated.')
-        else:
+
             if(hasProgram(cmd)):
-                subprocess.run(['python3', cmd])
+                subprocess.run(['python3', cmdWithExtensions[cmdList.index(cmd)]])
             else:
                 print('There is no Script with that name.')
 
