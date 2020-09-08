@@ -32,6 +32,7 @@ def parseEcmsFolder():
             progs[i] = removeExtension(x)
     return progs
 
+
 def hasExtension(name = ''):
     x = len(name) - 1
     while( x > 0):
