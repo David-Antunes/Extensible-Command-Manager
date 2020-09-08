@@ -26,6 +26,7 @@ execute_file = {
 }
 
 def execute_script():
+    subprocess.run(['python3', 'h'])
     pass
 
 def check_if_script_exists():
@@ -35,6 +36,9 @@ def get_file_extension():
     pass
 
 def change_dir():
+    pass
+
+def store_configs():
     pass
 
 def main():
@@ -49,10 +53,14 @@ def main():
             break  
         elif(cmd == 'cd'):
             change_dir()
-        else:
-                subprocess.run(['python3', 'h'])
 
-if __name__ == "__main__":
+        elif(cmd == 'ecm store configs'):
+            store_configs()
+            
+        else:
+            execute_script()
+
+if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt: # This is to not generate an error when you ctrl+c the program
