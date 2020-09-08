@@ -10,6 +10,9 @@ import setup_files
 
 cmdList = []
 cmdWithExtensions = []
+path = []
+colors = []
+execute_file = {}
 
 def hasProgram(name):
     if name in cmdList:
