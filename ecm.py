@@ -54,8 +54,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt: # This is to not generate an error when you ctrl+c the program
         print()
 
-
-print(cmdList)
 """
 
 ADD NEW SCRIPT
