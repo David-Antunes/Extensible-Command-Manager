@@ -3,53 +3,54 @@ import sys
 import pathlib as pl
 import subprocess
 
-# Importing local Files
-import file_creation
-import file_parser
-import setup_files
+# Displays the prompt in the pyBash
+prompt = ''
 
-cmdList = []
-cmdWithExtensions = []
+# Directories to verify if there is a corresponding script to be executed
 path = []
+
+# Structure of colors inside the pyBash
 colors = []
+
+# Extensions the program recognizes and will try to execute
 execute_file = {}
 
-def hasProgram(name):
-    if name in cmdList:
-        return True
-    return False
+
+# initial values
+# delete after config files are done
+
+prompt = os.getcwd() + ':$ '
+path = [os.getcwd + '/ecms',]
+execute_file = {
+    '.py' : 'python3',
+}
+
+def execute_script():
+    pass
+
+def check_if_script_exists():
+    pass
+
+def get_file_extension():
+    pass
+
+def change_dir():
+    pass
 
 def main():
 
-    setup_files.SetupFiles() # Checks necessary if ecms exists
-    os.chdir('./ecms')
-    print('Hello! Type help to discover more commands.')
-
-    """
-    Main program Loop
-    This loop handles the user input
-    and redirects to the correponding script to be run
-    """
+    
     while(1):
 
-        cmd = input( os.getcwd() + ":$ ") # Holds the user input
+        cmd = input(prompt) # Holds the user input
         
-        if(cmd == "exit" or cmd == "q"):
+        if(cmd == 'exit' or cmd == 'q'):
             print('Bye!')
-            break
+            break  
+        elif(cmd == 'cd'):
+            change_dir()
         else:
-            
-            global cmdList
-            global cmdWithExtensions
-
-            cmdList = file_parser.parseEcmsFolder()
-            
-            cmdWithExtensions = os.listdir()
-
-            if(hasProgram(cmd)):
-                subprocess.run(['python3', cmdWithExtensions[cmdList.index(cmd)]])
-            else:
-                print('There is no Script with that name.')
+                subprocess.run(['python3', 'h'])
 
 if __name__ == "__main__":
     try:
@@ -57,12 +58,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt: # This is to not generate an error when you ctrl+c the program
         print()
 
-"""
 
-ADD NEW SCRIPT
-REMOVE SCRIPT
-CHECK SCRIPTS
-CREATE FOLDER
-CREATE EXAMPLE SCRIPT
-
-"""        
