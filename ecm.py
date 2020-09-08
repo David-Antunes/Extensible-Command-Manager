@@ -62,6 +62,10 @@ def main():
 
 if __name__ == '__main__':
     try:
+
+        # Add Function to work with argv
+        # exec_argv():
+
         main()
     except KeyboardInterrupt: # This is to not generate an error when you ctrl+c the program
         print()
