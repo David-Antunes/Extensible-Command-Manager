@@ -20,7 +20,7 @@ execute_file = {}
 # delete after config files are done
 
 prompt = os.getcwd() + ':$ '
-path = [os.getcwd + '/ecms',]
+path = [os.getcwd() + '/ecms',]
 execute_file = {
     '.py' : 'python3',
 }
@@ -45,7 +45,7 @@ def main():
 
     
     while(1):
-
+        print('hello! Welcome to pyBash! Type help for more information.')
         cmd = input(prompt) # Holds the user input
         
         if(cmd == 'exit' or cmd == 'q'):
@@ -56,7 +56,7 @@ def main():
 
         elif(cmd == 'ecm store configs'):
             store_configs()
-            
+
         else:
             execute_script()
 
