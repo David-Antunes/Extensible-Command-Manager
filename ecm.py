@@ -3,6 +3,8 @@ import sys
 import pathlib as pl
 import subprocess
 
+DEBUG = True
+
 # Displays the prompt in the pyBash
 prompt = ''
 
@@ -30,6 +32,8 @@ def execute_script(cmd='',args=[]):
         print()
     else:
         extension = get_file_extension(cmd)
+        if DEBUG:
+            print(extension)
         if extension in execute_file:
 
             subprocess.run([execute_file.get(extension), cmd + extension + ''.join(args)])
@@ -42,8 +46,9 @@ def get_file_extension(cmd=''):
         prog_list = os.listdir(ph)
         for prog in prog_list:
             prog = prog.split('.')
+            
             if prog[0] == cmd:
-                return prog[-1]
+                return ('.' + prog[-1])
         
     return ''
 
@@ -60,7 +65,7 @@ def main():
     
     while(1):
         cmd = input(prompt) # Holds the user input
-        cmd.split()
+        cmd = cmd.split()
 
         if(cmd[0] == 'exit' or cmd[0] == 'q'):
             print('Bye!')
