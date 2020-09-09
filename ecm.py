@@ -56,10 +56,9 @@ def store_configs():
 
 
 def main():
-
+        print('hello! Welcome to pyBash! Type help for more information.')
     
     while(1):
-        print('hello! Welcome to pyBash! Type help for more information.')
         cmd = input(prompt) # Holds the user input
         cmd.split()
 
