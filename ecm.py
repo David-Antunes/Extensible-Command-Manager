@@ -25,21 +25,35 @@ execute_file = {
     '.py' : 'python3',
 }
 
-def execute_script():
-    subprocess.run(['python3', 'h'])
-    pass
+def execute_script(cmd='',args=[]):
+    if(cmd == ''):
+        print()
+    else:
+        extension = get_file_extension(cmd)
+        if extension in execute_file:
 
-def check_if_script_exists():
-    pass
+            subprocess.run([execute_file.get(extension), cmd + extension + ''.join(args)])
+        else:
+            print('No script with that name.')
 
-def get_file_extension():
-    pass
+def get_file_extension(cmd=''):
 
-def change_dir():
+    for ph in path:
+        prog_list = os.listdir(ph)
+        for prog in prog_list:
+            prog = prog.split('.')
+            if prog[0] == cmd:
+                return prog[-1]
+        
+    return ''
+
+def change_dir(cmd = ''):
     pass
 
 def store_configs():
     pass
+
+
 
 def main():
 
@@ -47,18 +61,19 @@ def main():
     while(1):
         print('hello! Welcome to pyBash! Type help for more information.')
         cmd = input(prompt) # Holds the user input
-        
-        if(cmd == 'exit' or cmd == 'q'):
+        cmd.split()
+
+        if(cmd[0] == 'exit' or cmd[0] == 'q'):
             print('Bye!')
             break  
-        elif(cmd == 'cd'):
-            change_dir()
+        elif(cmd[0] == 'cd'):
+            change_dir(cmd[1:])
 
         elif(cmd == 'ecm store configs'):
             store_configs()
 
         else:
-            execute_script()
+            execute_script(cmd[0], cmd[1:])
 
 if __name__ == '__main__':
     try:
