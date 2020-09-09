@@ -32,11 +32,11 @@ def execute_script(cmd='',args=[]):
         print()
     else:
         extension = get_file_extension(cmd)
-        if DEBUG:
-            print(extension)
+        prog_to_exec = cmd + extension
+
         if extension in execute_file:
 
-            subprocess.run([execute_file.get(extension), cmd + extension + ''.join(args)])
+            subprocess.run([execute_file.get(extension), get_file_path(prog_to_exec) + ''.join(args)])
         else:
             print('No script with that name.')
 
@@ -51,6 +51,19 @@ def get_file_extension(cmd=''):
                 return ('.' + prog[-1])
         
     return ''
+
+def get_file_path(filename):
+    if filename == '':
+        return ''
+    
+    for ph in path:
+        print(ph)
+        prog_list = os.listdir(ph)
+        print(prog_list)
+        for prog in prog_list:
+            if prog == filename:
+                return os.path.realpath(ph + '/' + filename)
+
 
 def change_dir(cmd = ''):
     pass
