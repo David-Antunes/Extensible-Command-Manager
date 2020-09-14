@@ -64,30 +64,24 @@ def get_file_path(filename):
         return ''
     
     for ph in path:
-        print(ph)
         prog_list = os.listdir(ph)
-        print(prog_list)
         for prog in prog_list:
             if prog == filename:
                 return os.path.realpath(ph + '/' + filename)
 
 
 def change_dir(cmd = []):
-    if cmd == []:
-        print('Not enough arguments. Provide a directory name after cd.')
-        return
 
-    elif len(cmd) > 1:
-        print('To many arguments.')
-        return
-    
-    elif cmd[1] == '--h':
+    if len(cmd) == 0:
         print('cd [Directory name] or [absolute Path ex: /home/example]')
-        return
-
+        return 0
+    
     global prompt
-    os.chdir(cmd)
-    prompt = os.getcwd()
+    if(os.path.isdir(cmd[0])):
+        os.chdir(cmd[0])
+        prompt = os.getcwd()
+    else:
+        print('Invalid directory.')
     
 
 def store_configs():
