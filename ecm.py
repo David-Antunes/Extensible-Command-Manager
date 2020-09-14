@@ -14,10 +14,7 @@ prompt_symbol = ''
 path = []
 
 # Structure of colors inside the pyBash
-colors = {
-    'prompt' : Fore.GREEN,
-    'prompt_symbol' : Fore.BLUE,
-}
+colors = {}
 
 # Extensions the program recognizes and will try to execute
 execute_file = {}
@@ -28,6 +25,10 @@ execute_file = {}
 
 prompt = os.getcwd()
 prompt_symbol = ':$ '
+colors = {
+    'prompt' : Fore.GREEN,
+    'prompt_symbol' : Fore.BLUE,
+}
 path = [os.getcwd() + '/ecms',]
 execute_file = {
     '.py' : 'python3',
