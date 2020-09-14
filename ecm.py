@@ -8,13 +8,15 @@ DEBUG = True
 
 # Displays the prompt in the pyBash
 prompt = ''
-prompt_symbol = ':$ '
+# Displays the symbol of line in pyBash
+prompt_symbol = ''
 # Directories to verify if there is a corresponding script to be executed
 path = []
 
 # Structure of colors inside the pyBash
 colors = {
     'prompt' : Fore.GREEN,
+    'prompt_symbol' : Fore.BLUE,
 }
 
 # Extensions the program recognizes and will try to execute
@@ -24,7 +26,8 @@ execute_file = {}
 # initial values
 # delete after config files are done
 
-prompt = os.getcwd() + ':$ '
+prompt = os.getcwd()
+prompt_symbol = ':$ '
 path = [os.getcwd() + '/ecms',]
 execute_file = {
     '.py' : 'python3',
@@ -71,35 +74,37 @@ def get_file_path(filename):
 def change_dir(cmd = []):
     if cmd == []:
         print('Not enough arguments. Provide a directory name after cd.')
+        return
 
     elif len(cmd) > 1:
         print('To many arguments.')
+        return
     
     elif cmd[1] == '--h':
         print('cd [Directory name] or [absolute Path ex: /home/example]')
+        return
 
     global prompt
-    global prompt_symbol
     os.chdir(cmd)
-    prompt = os.getcwd() + prompt_symbol
+    prompt = os.getcwd()
     
 
 def store_configs():
     pass
 
-def print_prompt(arg = ''):
-    if arg == '':
-        print('missing prompt!')
+def print_prompt():
     global colors
     global prompt
+    global prompt_symbol
     print(colors.get('prompt') + prompt, end='')
+    print(colors.get('prompt_symbol') + prompt_symbol, end='')
+
 
 def main():
     print('hello! Welcome to pyBash! Type help for more information.')
     
     while(1):
-        global prompt
-        print_prompt(prompt)
+        print_prompt()
         cmd = input() # Holds the user input
         cmd = cmd.split()
 
