@@ -65,7 +65,16 @@ def get_file_path(filename):
                 return os.path.realpath(ph + '/' + filename)
 
 
-def change_dir(cmd = ''):
+def change_dir(cmd = []):
+    if cmd == []:
+        print('Not enough arguments. Provide a directory name after cd.')
+
+    elif len(cmd) > 1:
+        print('To many arguments.')
+    
+    elif cmd[1] == '--h':
+        print('cd [Directory name] or [absolute Path ex: /home/example]')
+
     global prompt
     os.chdir(cmd)
     prompt = os.getcwd() + ':$ '
@@ -86,7 +95,7 @@ def main():
             print('Bye!')
             break  
         elif(cmd[0] == 'cd'):
-            change_dir(cmd[1])
+            change_dir(cmd[1:])
             
 
         elif(cmd == 'ecm store configs'):
