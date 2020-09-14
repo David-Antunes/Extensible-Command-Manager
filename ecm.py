@@ -107,8 +107,9 @@ def main():
         print_prompt()
         cmd = input() # Holds the user input
         cmd = cmd.split()
-
-        if(cmd[0] == 'exit' or cmd[0] == 'q'):
+        if(len(cmd) == 0):
+            continue
+        elif(cmd[0] == 'exit' or cmd[0] == 'q'):
             print('Bye!')
             break  
         elif(cmd[0] == 'cd'):
