@@ -66,11 +66,12 @@ def get_file_path(filename):
 
 
 def change_dir(cmd = ''):
-    pass
+    global prompt
+    prompt = os.getcwd() + ':$ '
+    
 
 def store_configs():
     pass
-
 
 
 def main():
@@ -85,6 +86,7 @@ def main():
             break  
         elif(cmd[0] == 'cd'):
             change_dir(cmd[1:])
+            
 
         elif(cmd == 'ecm store configs'):
             store_configs()
