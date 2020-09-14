@@ -67,6 +67,7 @@ def get_file_path(filename):
 
 def change_dir(cmd = ''):
     global prompt
+    os.chdir(cmd)
     prompt = os.getcwd() + ':$ '
     
 
@@ -85,7 +86,7 @@ def main():
             print('Bye!')
             break  
         elif(cmd[0] == 'cd'):
-            change_dir(cmd[1:])
+            change_dir(cmd[1])
             
 
         elif(cmd == 'ecm store configs'):
