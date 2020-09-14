@@ -2,17 +2,20 @@ import os
 import sys
 import pathlib as pl
 import subprocess
+from colorama  import Fore,Back,Style, init, deinit
 
 DEBUG = True
 
 # Displays the prompt in the pyBash
 prompt = ''
-
+prompt_symbol = ':$ '
 # Directories to verify if there is a corresponding script to be executed
 path = []
 
 # Structure of colors inside the pyBash
-colors = []
+colors = {
+    'prompt' : Fore.GREEN,
+}
 
 # Extensions the program recognizes and will try to execute
 execute_file = {}
@@ -76,19 +79,28 @@ def change_dir(cmd = []):
         print('cd [Directory name] or [absolute Path ex: /home/example]')
 
     global prompt
+    global prompt_symbol
     os.chdir(cmd)
-    prompt = os.getcwd() + ':$ '
+    prompt = os.getcwd() + prompt_symbol
     
 
 def store_configs():
     pass
 
+def print_prompt(arg = ''):
+    if arg == '':
+        print('missing prompt!')
+    global colors
+    global prompt
+    print(colors.get('prompt') + prompt, end='')
 
 def main():
     print('hello! Welcome to pyBash! Type help for more information.')
     
     while(1):
-        cmd = input(prompt) # Holds the user input
+        global prompt
+        print_prompt(prompt)
+        cmd = input() # Holds the user input
         cmd = cmd.split()
 
         if(cmd[0] == 'exit' or cmd[0] == 'q'):
@@ -109,9 +121,13 @@ if __name__ == '__main__':
 
         # Add Function to work with argv
         # exec_argv():
-
+        init(autoreset=True)
         main()
+        deinit()
     except KeyboardInterrupt: # This is to not generate an error when you ctrl+c the program
         print()
+    
+    finally:
+        deinit()
 
 
