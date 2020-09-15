@@ -95,6 +95,39 @@ def print_prompt():
     print(colors.get('prompt_symbol') + prompt_symbol, end='')
 
 
+def run_function(cmd='$'):
+    if(cmd == '$'):
+        return 0
+
+    cmd[0] = cmd[0][1:] # Removes the $ symbol
+
+    if(cmd[0] == 'help'):
+        print_help()
+        return
+    elif cmd[0] == 'ext':
+        if(len(cmd) > 3):
+            print('To many arguments.')
+        elif cmd[1][0] != '.' or cmd[2][0] == '.':
+            print('Invalid extension.')
+        else:
+            global execute_file
+            execute_file[cmd[1]] = cmd[2]
+    elif cmd[0] == 'store':
+        store_configs()
+    elif cmd[0] == 'path':
+        add_path()
+    else:
+        print('Invalid command.')
+
+def add_path():
+    pass
+
+def print_help():
+    print('ext [extension] [name of the program to execute] - Saves the combination of pair extension and program to allow the files with the given extension to be executed.')
+    print('store - Stores the configs currently present in the program. Will override the configs present in the files colors.conf, exec.conf and vars.conf.')
+    print('path - Adds a new directory to search for executable files.')
+
+
 def main():
     print('hello! Welcome to pyBash! Type help for more information.')
     
