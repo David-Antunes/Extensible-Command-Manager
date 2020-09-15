@@ -112,6 +112,7 @@ def run_function(cmd='$'):
         else:
             global execute_file
             execute_file[cmd[1]] = cmd[2]
+
     elif cmd[0] == 'store':
         store_configs()
     elif cmd[0] == 'path':
@@ -142,11 +143,9 @@ def main():
             break  
         elif(cmd[0] == 'cd'):
             change_dir(cmd[1:])
-            
-
-        elif(cmd == 'ecm store configs'):
-            store_configs()
-
+        
+        elif(cmd[0][0] == '$'):
+            run_function(cmd)
         else:
             execute_script(cmd[0], cmd[1:])
 
